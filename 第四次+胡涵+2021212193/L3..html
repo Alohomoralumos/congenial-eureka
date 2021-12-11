@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L3.</title>
+</head>
+<body>
+    <script>
+        // 传入最基本的配置，会合并之后调用方法时传入的配置
+const ajax = new Ajax({
+  data: JSON.stringify({
+    
+  }),
+  headers: {
+    
+  },
+  beforeSuccess: () => { /* some codes to handle data */ },
+  afterSuccess: () => { /* some codes to handle data */ },
+  beforeError: () => { /* some codes to handle error */ },
+  afterError: () => { /* some codes to handle error */ },
+})
+
+ajax.get('http://cloud-music.pl-fe.cn//personalized', {
+  data: {
+    limit:10
+  },
+  success: () => { console.log(response)},
+  error: () => {console.log(error)},
+})
+    </script>
+</body>
+</html>

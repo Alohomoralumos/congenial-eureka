@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L2</title>
+</head>
+<body>
+    <button id="btn" style="background-color: blue;color:white;height: 40px;width:140px;border-radius:5%;border-style:none;position: fixed;">Get favorite songs!!!</button>
+    <script>
+    const u =new URL("/personalized?limit=10","http://cloud-music.pl-fe.cn/");
+    function request(url,success,error)
+    {
+        const xhr = new XMLHttpRequest();
+        xhr.open("get",url,true);
+        xhr.onreadystatechange = () =>{
+            if (xhr.readyState === 4){
+                if ((xhr.status >= 200 && xhr.status <300)){
+                    const ret = JSON.parse(xhr.responseText);
+                    success(ret);
+                }
+        }
+        else error();
+        }
+        xhr.send();
+    }
+    function success(ret)
+    {
+        for(let i=0;i<=ret.result.length;i++){
+            let r = ret.result[i];
+            console.log(r);
+            let div = document.createElement('div');
+            div.style="float:left;width:200px;height:300px;margin:10px;border-radius:5px";
+            //图片
+            let s = r.picUrl;
+            let img = document.createElement('img');
+            img.style="float:left;width:200px;height:200px;margin-top:5px;margin-bottom:10px";
+            div.append(img);
+            img.src=s;
+            //注释
+            let n = r.name;
+            let p = document.createElement('p');
+            p.innerText=n;
+            div.append(p);
+            document.body.append(div);
+        }   
+    }
+    const error = () =>console.log("ERROR!");
+    btn.addEventListener('click',()=>request(u,success,error))
+    </script>
+</body>
+</html>
